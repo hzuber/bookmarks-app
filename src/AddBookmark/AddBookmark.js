@@ -16,7 +16,6 @@ class AddBookmark extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    // get the form fields from the event
     const { title, url, description, rating } = e.target
     const bookmark = {
       title: title.value,
@@ -35,9 +34,7 @@ class AddBookmark extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          // get the error message from the response,
           return res.json().then(error => {
-            // then throw it
             throw error
           })
         }

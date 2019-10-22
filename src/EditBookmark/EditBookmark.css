@@ -1,0 +1,18 @@
+.editBookmarkForm{
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+    text-align: left;
+}
+input{
+    margin: 5px;
+}
+.editForm_Buttons{
+    width: 100%;
+    text-align: center;
+}
+button{
+    width: 100px;
+    margin: 5px;
+}

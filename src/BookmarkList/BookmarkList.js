@@ -4,16 +4,17 @@ import BookmarkItem from '../BookmarkItem/BookmarkItem';
 import './BookmarkList.css';
 import PropTypes from 'prop-types';
 
-class BookmarkList extends Component {
+class BookmarkList extends Component{
   static contextType = BookmarksContext;
 
   render() {
     const { bookmarks } = this.context
+    const orderedBookmarks = bookmarks.sort((a, b) => a.id < b.id ? -1 : 1)
     return (
       <section className='BookmarkList'>
         <h2>Your bookmarks</h2>
         <ul className='BookmarkList__list' aria-live='polite'>
-          {bookmarks.map(bookmark =>
+          {orderedBookmarks.map(bookmark =>
             <BookmarkItem
               key={bookmark.id}
               {...bookmark}

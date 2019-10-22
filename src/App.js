@@ -3,16 +3,19 @@ import { Route } from 'react-router-dom';
 import AddBookmark from './AddBookmark/AddBookmark';
 import BookmarkList from './BookmarkList/BookmarkList';
 import BookmarksContext from './BookmarksContext';
+import EditBookmark from './EditBookmark/EditBookmark'
 import Nav from './Nav/Nav';
 import config from './config';
-import Rating from './Rating/Rating';
 import './App.css';
 
 class App extends Component {
-  state = {
-    bookmarks: [],
-    error: null,
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      bookmarks: [],
+      error: null,
+    };
+  }
 
   setBookmarks = bookmarks => {
     this.setState({
@@ -34,6 +37,17 @@ class App extends Component {
     this.setState({
       bookmarks: newBookmarks
     })
+  }
+
+  editBookmark = editedBookmark => {
+    console.log(editedBookmark)
+    console.log('editbookmark ran')
+    const newBookmarks = this.state.bookmarks.map(bm =>
+      (bm.id !== editedBookmark.id) ? bm : editedBookmark)
+      console.log(newBookmarks)
+      this.setState({
+        bookmarks: newBookmarks
+      })
   }
 
   componentDidMount() {
@@ -58,14 +72,14 @@ class App extends Component {
     const contextValue = {
       bookmarks: this.state.bookmarks,
       addBookmark: this.addBookmark,
-      deleteBookmark: this.deleteBookmark
+      deleteBookmark: this.deleteBookmark,
+      editBookmark: this.editBookmark
     }
     return (
       <main className='App'>
         <h1>Bookmarks!</h1>
         <BookmarksContext.Provider value={contextValue}>
           <Nav />
-          <Rating value={3}/>
           <div className='content' aria-live='polite'>
             <Route
               path='/add-bookmark'
@@ -74,6 +88,10 @@ class App extends Component {
             <Route
               exact path='/'
               component={BookmarkList}
+            />
+            <Route 
+              path='/:id/edit'
+              component={EditBookmark}
             />
           </div>
         </BookmarksContext.Provider>
